@@ -1,6 +1,6 @@
 package com.example.appapi.controller;
 
-import com.example.appapi.entity.Gallery;
+import com.example.appapi.model.entity.Gallery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PathVariable;

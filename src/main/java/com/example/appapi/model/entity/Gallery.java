@@ -1,8 +1,9 @@
-package com.example.appapi.entity;
+package com.example.appapi.model.entity;
 
 import lombok.*;
 
 import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
