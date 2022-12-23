@@ -8,7 +8,8 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class Message {
+public class MessageKafka {
+    private Object data;
     private String senderName;
     private String receiverName;
     private String message;

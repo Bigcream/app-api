@@ -1,18 +1,30 @@
-//package com.example.appapi.controller;
-//
-//
-//import com.example.appapi.model.dto.Message;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RestController
-//@RequestMapping("/api/v1")
-//@RequiredArgsConstructor
-//public class ChatController extends BaseController {
+package com.example.appapi.controller;
+
+
+import com.example.appapi.kafka.producer.PrivateChatProducer;
+import com.example.appapi.kafka.producer.PublicChatProducer;
+import com.example.appapi.model.entity.UserEntity;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/v1")
+@RequiredArgsConstructor
+public class ChatController extends BaseController {
+    private final PublicChatProducer publicChatProducer;
+    private final PrivateChatProducer privateChatProducer;
+    @PostMapping("/public-chat")
+    public ResponseEntity<String> sendMessageToPublicChat(@RequestBody UserEntity user){
+        publicChatProducer.sendMessageToPublicChat(user);
+        return ResponseEntity.ok("Message sent to public chat");
+    }
+
+    @PostMapping("/private-chat")
+    public ResponseEntity<String> sendMessageToPrivateChat(@RequestBody UserEntity user){
+        privateChatProducer.sendMessageToPrivateChat(user);
+        return ResponseEntity.ok("Message sent to private chat");
+    }
 //    private final ChatRoomService chatRoomService;
 //    private final UserChatService userChatService;
 //
@@ -49,4 +61,4 @@
 //    public List<String> getAllUserOnline(){
 //        return UtilityActor.askObject(actorCommon, new ChatRoom.GetAllUserOnline(), String.class);
 //    }
-//}
+}

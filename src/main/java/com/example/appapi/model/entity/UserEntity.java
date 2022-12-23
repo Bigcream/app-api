@@ -15,12 +15,11 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity  implements Serializable {
-    private static final long serialVersionUID = -6500665823330706018L;
+public class UserEntity{
 
     @Id
-//    @SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq")
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
+    @SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
     protected Long id;
 
     @Column(name = "username")

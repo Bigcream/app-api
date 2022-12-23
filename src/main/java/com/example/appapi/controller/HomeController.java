@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class HomeController {
-    private final RestTemplate restTemplate;
     private final Environment env;
 
     @RequestMapping("/")
@@ -30,16 +29,13 @@ public class HomeController {
         Gallery gallery = new Gallery();
         gallery.setId(id);
 
-        // get list of available images
-        List<Object> images = restTemplate.getForObject("http://chat-service/images/", List.class);
-        gallery.setImages(images);
 
         return gallery;
     }
 
     // -------- Admin Area --------
     // This method should only be accessed by users with role of 'admin' // We'll add the logic of role based auth later  @RequestMapping("/admin")
-    public String homeAdmin() {
-        return "This is the admin area of Gallery service running at port: " + env.getProperty("local.server.port");
-    }
+//    public String homeAdmin() {
+//        return "This is the admin area of Gallery service running at port: " + env.getProperty("local.server.port");
+//    }
 }
