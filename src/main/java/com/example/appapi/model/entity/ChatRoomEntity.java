@@ -41,15 +41,11 @@ public class ChatRoomEntity implements Serializable {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chatRoom")
-    private Set<UserEntity> users;
 
     public ChatRoomDTO convertToDTO(){
         return ChatRoomDTO.builder()
                 .chatRoomId(this.getChatRoomId())
                 .createBy(this.getCreatedBy())
-                .userInRooms(this.getUsers())
                 .build();
     }
 }

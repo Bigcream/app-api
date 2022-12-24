@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,8 +41,7 @@ public class UserEntity{
     )
     private Set<RoleEntity> roles;
 
-    @ManyToOne
-    @JoinColumn(name = "chat_id")
-    private ChatRoomEntity chatRoom;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<MessageRoomEntity> messageRooms;
 
 }

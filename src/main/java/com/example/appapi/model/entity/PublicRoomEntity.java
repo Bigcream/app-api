@@ -3,9 +3,8 @@ package com.example.appapi.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Setter
@@ -23,5 +22,6 @@ public class PublicRoomEntity {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publicRoom")
-    private Set<MessageRoomEntity> messageRoom;
+    @OrderBy(value = "seq")
+    private List<MessageRoomEntity> messageRoom;
 }

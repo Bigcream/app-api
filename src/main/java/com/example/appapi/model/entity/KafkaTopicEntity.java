@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "kafka topic")
+@Table(name = "kafka_topic")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Builder
 public class KafkaTopicEntity {
     @Id
-    @SequenceGenerator(name = "kafka topic_id_seq", sequenceName = "kafka topic_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "kafka topic_id_seq")
+    @SequenceGenerator(name = "kafka_topic_id_seq", sequenceName = "kafka_topic_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "kafka_topic_id_seq")
     protected Long id;
 
     private String topicName;

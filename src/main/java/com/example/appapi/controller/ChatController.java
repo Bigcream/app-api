@@ -3,6 +3,7 @@ package com.example.appapi.controller;
 
 import com.example.appapi.kafka.producer.PrivateChatProducer;
 import com.example.appapi.kafka.producer.PublicChatProducer;
+import com.example.appapi.model.dto.MessageKafka;
 import com.example.appapi.model.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,8 @@ public class ChatController extends BaseController {
     private final PublicChatProducer publicChatProducer;
     private final PrivateChatProducer privateChatProducer;
     @PostMapping("/public-chat")
-    public ResponseEntity<String> sendMessageToPublicChat(@RequestBody UserEntity user){
-        publicChatProducer.sendMessageToPublicChat(user);
+    public ResponseEntity<String> sendMessageToPublicChat(@RequestBody MessageKafka messageKafka){
+        publicChatProducer.sendMessageToPublicChat(messageKafka);
         return ResponseEntity.ok("Message sent to public chat");
     }
 
