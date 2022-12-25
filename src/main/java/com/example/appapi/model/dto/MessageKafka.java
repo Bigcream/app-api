@@ -1,7 +1,6 @@
 package com.example.appapi.model.dto;
 
 import lombok.*;
-
 import java.sql.Timestamp;
 
 @NoArgsConstructor
@@ -17,5 +16,7 @@ public class MessageKafka {
     private String message;
     private Timestamp time;
     private Status status;
-    private Long public_room_id;
+    private Long publicRoomId;
+    private Long senderId;
+    private Long receiverId;
 }

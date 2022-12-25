@@ -39,9 +39,5 @@ public class UserController extends BaseController {
     public ResponseEntity<UserEntity> register(@RequestBody UserEntity user){
         return new  ResponseEntity<>(userChatService.register(user), noCacheHeader, HttpStatus.OK);
     }
-    @GetMapping("/random")
-    public ResponseEntity<String> randomStuff(){
-        return ResponseEntity.ok("test.get()");
-    }
 
 }

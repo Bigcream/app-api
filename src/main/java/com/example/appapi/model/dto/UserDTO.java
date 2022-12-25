@@ -1,6 +1,8 @@
 package com.example.appapi.model.dto;
 
 import lombok.*;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,7 +13,6 @@ public class UserDTO {
     private Long id;
     private String username;
     private String email;
-    private String firstName;
-    private String lastName;
-    private String passWord;
+    private List<MessageRoomDTO> messageRooms;
+    private Set<RoleDTO> roles;
 }

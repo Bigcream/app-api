@@ -1,9 +1,10 @@
 package com.example.appapi.model.entity;
 
-
+import com.example.appapi.model.dto.PublicRoomDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,23 @@ public class PublicRoomEntity {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publicRoom")
-    @OrderBy(value = "seq")
+    @OrderBy(value = "time ASC")
     private List<MessageRoomEntity> messageRoom;
+
+    public PublicRoomDTO convertToDTO(boolean withRelation){
+        PublicRoomDTO publicRoomDTO = PublicRoomDTO.builder()
+                .id(this.getId())
+                .roomName(this.getRoomName())
+                .build();
+        if(withRelation){
+            publicRoomDTO.setMessageRoom(MessageRoomEntity.convertToDTOs(this.getMessageRoom()));
+        }
+        return publicRoomDTO;
+    }
+
+    public static List<PublicRoomDTO> convertToDTOs(List<PublicRoomEntity> publicRoomEntities, boolean withRelation){
+        List<PublicRoomDTO> publicRoomDTOS = new ArrayList<>();
+        publicRoomEntities.forEach(publicRoom -> publicRoomDTOS.add(publicRoom.convertToDTO(withRelation)));
+        return publicRoomDTOS;
+    }
 }

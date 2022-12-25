@@ -1,21 +1,23 @@
 package com.example.appapi.controller;
 
+import com.example.appapi.model.dto.PublicRoomDTO;
 import com.example.appapi.model.entity.Gallery;
+import com.example.appapi.model.entity.UserEntity;
+import com.example.appapi.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
-public class HomeController {
-    private final Environment env;
-
+public class HomeController extends BaseController {
+    private final ChatService chatService;
     @RequestMapping("/")
     public String home() {
         // This is useful for debugging
@@ -23,19 +25,13 @@ public class HomeController {
         return "Gallery Service";
     }
 
-    @RequestMapping("/{id}")
-    public Gallery getGallery(@PathVariable final int id) {
-        // create gallery object
-        Gallery gallery = new Gallery();
-        gallery.setId(id);
-
-
-        return gallery;
+    @GetMapping("/get-public-rooms")
+    public ResponseEntity<List<PublicRoomDTO>> sendMessageToPrivateChat(){
+        return new  ResponseEntity<>(chatService.getAllPublicRoom(), noCacheHeader, HttpStatus.OK);
     }
 
-    // -------- Admin Area --------
-    // This method should only be accessed by users with role of 'admin' // We'll add the logic of role based auth later  @RequestMapping("/admin")
-//    public String homeAdmin() {
-//        return "This is the admin area of Gallery service running at port: " + env.getProperty("local.server.port");
-//    }
+    @GetMapping("/get-public-room/{publicRoomId}")
+    public ResponseEntity<PublicRoomDTO> sendMessageToPrivateChat(@PathVariable Long publicRoomId){
+        return new  ResponseEntity<>(chatService.getPublicRoomById(publicRoomId), noCacheHeader, HttpStatus.OK);
+    }
 }

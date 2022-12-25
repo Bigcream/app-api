@@ -1,6 +1,7 @@
 package com.example.appapi.model.entity;
 
 
+import com.example.appapi.model.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -43,5 +44,12 @@ public class UserEntity{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<MessageRoomEntity> messageRooms;
+
+    public UserDTO convertToDTO(){
+        return UserDTO.builder()
+                .email(this.getEmail())
+                .id(getId())
+                .build();
+    }
 
 }

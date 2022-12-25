@@ -22,8 +22,8 @@ public class ChatController extends BaseController {
     }
 
     @PostMapping("/private-chat")
-    public ResponseEntity<String> sendMessageToPrivateChat(@RequestBody UserEntity user){
-        privateChatProducer.sendMessageToPrivateChat(user);
+    public ResponseEntity<String> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka){
+        privateChatProducer.sendMessageToPrivateChat(messageKafka);
         return ResponseEntity.ok("Message sent to private chat");
     }
 //    private final ChatRoomService chatRoomService;
