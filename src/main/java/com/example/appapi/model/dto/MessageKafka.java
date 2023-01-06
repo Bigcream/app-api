@@ -7,8 +7,6 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@Builder
 public class MessageKafka {
     private Object data;
     private String senderName;
