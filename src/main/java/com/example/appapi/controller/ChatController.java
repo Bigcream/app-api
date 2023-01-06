@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ChatController extends BaseController {
     private final KafkaService kafkaService;
-    @PostMapping("/public-chat")
+    @PostMapping("/chat-public")
     public ResponseEntity<String> sendMessageToPublicChat(@RequestBody MessageKafka messageKafka){
         kafkaService.sendMessagePublic(messageKafka);
         return ResponseEntity.ok("Message sent to public chat");
     }
 
-    @PostMapping("/private-chat")
+    @PostMapping("/chat-private")
     public ResponseEntity<String> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka){
         kafkaService.sendMessagePrivate(messageKafka);
         return ResponseEntity.ok("Message sent to private chat");
