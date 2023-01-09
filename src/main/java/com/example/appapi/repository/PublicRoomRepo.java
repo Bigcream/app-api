@@ -1,10 +1,9 @@
 package com.example.appapi.repository;
 
-import com.example.appapi.model.entity.RoleEntity;
+import com.example.appapi.model.entity.PublicRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IRoleRepo extends JpaRepository<RoleEntity, Long> {
-    RoleEntity findByName(String role);
+public interface PublicRoomRepo extends JpaRepository<PublicRoom, Long> {
 }

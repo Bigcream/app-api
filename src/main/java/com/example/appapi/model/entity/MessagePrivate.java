@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "message_private")
-public class MessagePrivateEntity {
+public class MessagePrivate {
 
     @Id
     @SequenceGenerator(name = "message_private_id_seq", sequenceName = "message_private_id_seq")
@@ -37,12 +37,4 @@ public class MessagePrivateEntity {
 
     @Column(name = "receiver_id")
     private Long receiverId;
-
-    @ManyToOne
-    @JoinColumn(name = "sender_id", insertable = false, updatable = false)
-    private UserEntity sender;
-
-    @ManyToOne
-    @JoinColumn(name = "receiver_id", insertable = false, updatable = false)
-    private UserEntity receiver;
 }

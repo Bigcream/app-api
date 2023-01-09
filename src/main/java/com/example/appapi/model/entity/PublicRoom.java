@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(name = "public_room")
-public class PublicRoomEntity {
+public class PublicRoom {
     @Id
     @SequenceGenerator(name = "public_room_id_seq", sequenceName = "public_room_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public_room_id_seq")
@@ -24,7 +24,7 @@ public class PublicRoomEntity {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publicRoom")
     @OrderBy(value = "time ASC")
-    private List<MessageRoomEntity> messageRoom;
+    private List<MessageRoom> messageRoom;
 
     public PublicRoomDTO convertToDTO(boolean withRelation){
         PublicRoomDTO publicRoomDTO = PublicRoomDTO.builder()
@@ -32,12 +32,12 @@ public class PublicRoomEntity {
                 .roomName(this.getRoomName())
                 .build();
         if(withRelation){
-            publicRoomDTO.setMessageRoom(MessageRoomEntity.convertToDTOs(this.getMessageRoom()));
+            publicRoomDTO.setMessageRoom(MessageRoom.convertToDTOs(this.getMessageRoom()));
         }
         return publicRoomDTO;
     }
 
-    public static List<PublicRoomDTO> convertToDTOs(List<PublicRoomEntity> publicRoomEntities, boolean withRelation){
+    public static List<PublicRoomDTO> convertToDTOs(List<PublicRoom> publicRoomEntities, boolean withRelation){
         List<PublicRoomDTO> publicRoomDTOS = new ArrayList<>();
         publicRoomEntities.forEach(publicRoom -> publicRoomDTOS.add(publicRoom.convertToDTO(withRelation)));
         return publicRoomDTOS;

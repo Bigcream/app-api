@@ -2,7 +2,6 @@ package com.example.appapi.model.entity;
 
 
 import com.example.appapi.model.dto.ChatRoomDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,6 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Entity
 @Table(name = "chat_room")
@@ -21,7 +19,7 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChatRoomEntity implements Serializable {
+public class ChatRoom implements Serializable {
     private static final long serialVersionUID = -6500665823330706018L;
 
     @Id
@@ -32,10 +30,10 @@ public class ChatRoomEntity implements Serializable {
     @Column(name = "chat_room_id", unique = true)
     private Long chatRoomId;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by")
-    @CreatedBy
-    private UserEntity createdBy;
+//    @ManyToOne
+//    @JoinColumn(name = "created_by")
+//    @CreatedBy
+//    private User createdBy;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -45,7 +43,6 @@ public class ChatRoomEntity implements Serializable {
     public ChatRoomDTO convertToDTO(){
         return ChatRoomDTO.builder()
                 .chatRoomId(this.getChatRoomId())
-                .createBy(this.getCreatedBy())
                 .build();
     }
 }

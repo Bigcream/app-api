@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class KafkaTopicEntity {
+public class KafkaTopic {
     @Id
     @SequenceGenerator(name = "kafka_topic_id_seq", sequenceName = "kafka_topic_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "kafka_topic_id_seq")

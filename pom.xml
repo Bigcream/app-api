@@ -17,23 +17,23 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
-    <scm>
-        <developerConnection>scm:git:git@github.com:Bigcream/app-api.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+<!--    <scm>-->
+<!--        <developerConnection>scm:git:git@github.com:Bigcream/app-api.git</developerConnection>-->
+<!--        <tag>HEAD</tag>-->
+<!--    </scm>-->
 
-    <distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <name>maven-releases</name>
-            <url>http://localhost:8081/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus</id>
-            <name>maven-snapshots</name>
-            <url>http://localhost:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>nexus</id>-->
+<!--            <name>maven-releases</name>-->
+<!--            <url>http://localhost:8081/repository/maven-releases/</url>-->
+<!--        </repository>-->
+<!--        <snapshotRepository>-->
+<!--            <id>nexus</id>-->
+<!--            <name>maven-snapshots</name>-->
+<!--            <url>http://localhost:8081/repository/maven-snapshots/</url>-->
+<!--        </snapshotRepository>-->
+<!--    </distributionManagement>-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -79,6 +79,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
     </dependencies>
 

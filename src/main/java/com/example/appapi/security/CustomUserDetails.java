@@ -1,7 +1,7 @@
 package com.example.appapi.security;
 
-import com.example.appapi.model.entity.RoleEntity;
-import com.example.appapi.model.entity.UserEntity;
+import com.example.appapi.model.entity.Role;
+import com.example.appapi.model.entity.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,13 +14,13 @@ import java.util.Set;
 @Data
 public class CustomUserDetails implements UserDetails {
 
-    private final UserEntity user;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        Set<RoleEntity> roles = user.getRoles();
-        for (RoleEntity role : roles) {
+        Set<Role> roles = user.getRoles();
+        for (Role role : roles) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         return grantedAuthorities;

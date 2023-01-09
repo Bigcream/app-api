@@ -1,6 +1,6 @@
 package com.example.appapi.controller;
 
-import com.example.appapi.model.entity.UserEntity;
+import com.example.appapi.model.entity.User;
 import com.example.appapi.security.CustomUserDetails;
 import com.example.appapi.security.jwt.JwtTokenProvider;
 import com.example.appapi.service.UserChatService;
@@ -22,7 +22,7 @@ public class UserController extends BaseController {
     private final JwtTokenProvider tokenProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody UserEntity user) {
+    public ResponseEntity<String> authenticateUser(@RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
@@ -36,7 +36,7 @@ public class UserController extends BaseController {
         return new  ResponseEntity<>(jwt, noCacheHeader, HttpStatus.OK);
     }
     @PostMapping("/register")
-    public ResponseEntity<UserEntity> register(@RequestBody UserEntity user){
+    public ResponseEntity<User> register(@RequestBody User user){
         return new  ResponseEntity<>(userChatService.register(user), noCacheHeader, HttpStatus.OK);
     }
 

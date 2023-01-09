@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 @Table(name = "message_room")
-public class MessageRoomEntity {
+public class MessageRoom {
     @Id
     @SequenceGenerator(name = "message_room_id_seq", sequenceName = "message_room_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_room_id_seq")
@@ -40,10 +40,7 @@ public class MessageRoomEntity {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "public_room_id", insertable = false, updatable = false)
-    private PublicRoomEntity publicRoom;
-    @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private UserEntity user;
+    private PublicRoom publicRoom;
 
     public MessageRoomDTO convertToDTO(){
         return MessageRoomDTO.builder()
@@ -56,9 +53,9 @@ public class MessageRoomEntity {
                 .build();
     }
 
-    public static List<MessageRoomDTO> convertToDTOs(List<MessageRoomEntity> messageRooms){
+    public static List<MessageRoomDTO> convertToDTOs(List<MessageRoom> messageRooms){
         List<MessageRoomDTO> messageRoomDTOS;
-        messageRoomDTOS = messageRooms.stream().map(MessageRoomEntity::convertToDTO).collect(Collectors.toList());
+        messageRoomDTOS = messageRooms.stream().map(MessageRoom::convertToDTO).collect(Collectors.toList());
         return messageRoomDTOS;
     }
 
