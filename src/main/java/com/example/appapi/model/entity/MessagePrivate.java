@@ -1,40 +1,28 @@
 package com.example.appapi.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Id;
 import java.util.Date;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "message_private")
+@Builder
+@Document(collection = "message_private")
 public class MessagePrivate {
 
     @Id
-    @SequenceGenerator(name = "message_private_id_seq", sequenceName = "message_private_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_private_id_seq")
-    protected Long id;
+    protected String id;
+    
+    private String sender;
 
-    private String senderName;
+    private String content;
 
-    private String receiverName;
+    @CreatedDate
+    private Date time_created;
 
-    private String message;
-
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
-
-    @Column(name = "sender_id")
-    private Long senderId;
-
-    @Column(name = "receiver_id")
-    private Long receiverId;
+    private String conversationId;
 }

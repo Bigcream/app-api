@@ -16,7 +16,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    protected Long id;
+    protected String id;
     private String username;
     private String email;
     private String password;
@@ -25,7 +25,8 @@ public class User {
     public UserDTO convertToDTO(){
         return UserDTO.builder()
                 .email(this.getEmail())
-                .id(getId())
+                .id(this.getId())
+                .roles(this.convertToDTO().getRoles())
                 .build();
     }
 

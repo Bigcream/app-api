@@ -10,9 +10,8 @@ import java.util.Set;
 @Getter
 @Setter
 public class UserDTO {
-    private Long id;
+    private String id;
     private String username;
     private String email;
-    private List<MessageRoomDTO> messageRooms;
     private Set<RoleDTO> roles;
 }

@@ -2,13 +2,15 @@ package com.example.appapi.controller;
 
 
 import com.example.appapi.model.dto.MessageKafka;
+import com.example.appapi.model.entity.MessagePrivate;
+import com.example.appapi.model.entity.MessagePublic;
 import com.example.appapi.service.KafkaService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -16,15 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController extends BaseController {
     private final KafkaService kafkaService;
     @PostMapping("/chat-public")
-    public ResponseEntity<String> sendMessageToPublicChat(@RequestBody MessageKafka messageKafka){
-        kafkaService.sendMessagePublic(messageKafka);
-        return ResponseEntity.ok("Message sent to public chat");
+    public ResponseEntity<MessagePublic> sendMessageToPublicChat(@RequestBody MessageKafka messageKafka, @RequestParam String conversationPublicId){
+        return new  ResponseEntity<>(kafkaService.sendMessagePublic(messageKafka, conversationPublicId), noCacheHeader, HttpStatus.OK);
     }
 
     @PostMapping("/chat-private")
-    public ResponseEntity<String> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka){
-        kafkaService.sendMessagePrivate(messageKafka);
-        return ResponseEntity.ok("Message sent to private chat");
+    public ResponseEntity<MessagePrivate> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka, @RequestParam(required = false) Optional<String> conversationId){
+        return new  ResponseEntity<>(kafkaService.sendMessagePrivate(messageKafka, conversationId), noCacheHeader, HttpStatus.OK);
     }
 //    private final ChatRoomService chatRoomService;
 //    private final UserChatService userChatService;

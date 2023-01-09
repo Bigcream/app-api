@@ -8,8 +8,7 @@ import java.util.List;
 @Setter
 @Getter
 @Builder
-public class PublicRoomDTO {
-    private Long id;
-    private String roomName;
-    private List<MessageRoomDTO> messageRoom;
+public class ConversationPublicDTO {
+    private String id;
+    private String name;
 }
