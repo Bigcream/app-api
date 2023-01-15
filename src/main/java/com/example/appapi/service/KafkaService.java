@@ -48,8 +48,10 @@ public class KafkaService {
             Conversation conversation = Conversation.builder()
                     .participants(participants)
                     .build();
-            conversationRepo.save(conversation);
+            conversation = conversationRepo.save(conversation);
             conversationId = conversation.getId();
+            messageKafka.setConversationId(conversationId);
+            kafkaServiceUtil.sendMessage(messageKafka, KafkaServiceApi.CREATE_CONVERSATION);
         } else {
             conversationId = optConversationId.get();
         }
@@ -59,7 +61,10 @@ public class KafkaService {
                 .conversationId(conversationId)
                 .build();
         messagePrivate = messagePrivateRepo.save(messagePrivate);
+        messageKafka.setConversationId(conversationId);
         kafkaServiceUtil.sendMessage(messageKafka, KafkaServiceApi.SEND_PRIVATE_CHAT);
         return messagePrivate;
     }
+
+
 }
