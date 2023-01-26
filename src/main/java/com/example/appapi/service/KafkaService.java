@@ -50,8 +50,8 @@ public class KafkaService {
                     .build();
             conversation = conversationRepo.save(conversation);
             conversationId = conversation.getId();
-            messageKafka.setConversationId(conversationId);
-            kafkaServiceUtil.sendMessage(messageKafka, KafkaServiceApi.CREATE_CONVERSATION);
+//            messageKafka.setConversationId(conversationId);
+//            kafkaServiceUtil.sendMessage(messageKafka, KafkaServiceApi.CREATE_CONVERSATION);
         } else {
             conversationId = optConversationId.get();
         }
