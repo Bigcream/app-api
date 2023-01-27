@@ -34,6 +34,7 @@ public class KafkaService {
                 .conversationPublicId(conversationPublicId)
                 .build();
         messagePublic = messagePublicRepo.save(messagePublic);
+        messageKafka.setConversationId(conversationPublicId);
         kafkaServiceUtil.sendMessage(messageKafka, KafkaServiceApi.SEND_PUBLIC_CHAT);
         return messagePublic;
     }
