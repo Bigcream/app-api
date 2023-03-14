@@ -1,10 +1,10 @@
 package com.example.appapi.controller;
 
 
-import com.example.appapi.model.dto.MessageKafka;
 import com.example.appapi.model.entity.MessagePrivate;
 import com.example.appapi.model.entity.MessagePublic;
-import com.example.appapi.service.KafkaService;
+import com.example.appapi.service.ChatService;
+import com.kafkaservice.payload.MessageKafka;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +16,18 @@ import java.util.Optional;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ChatController extends BaseController {
-    private final KafkaService kafkaService;
+
+    private final ChatService chatService;
     @PostMapping("/chat-public")
-    public ResponseEntity<MessagePublic> sendMessageToPublicChat(@RequestBody MessageKafka messageKafka, @RequestParam String conversationPublicId){
-        return new  ResponseEntity<>(kafkaService.sendMessagePublic(messageKafka, conversationPublicId), noCacheHeader, HttpStatus.OK);
+    public ResponseEntity<MessagePublic> sendMessageToPublicChat(@RequestBody MessageKafka messageKafka,
+                                                                 @RequestParam String conversationPublicId){
+        return new  ResponseEntity<>(chatService.sendMessagePublic(messageKafka, conversationPublicId), noCacheHeader, HttpStatus.OK);
     }
 
     @PostMapping("/chat-private")
-    public ResponseEntity<MessagePrivate> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka, @RequestParam(required = false) Optional<String> conversationId){
-        return new  ResponseEntity<>(kafkaService.sendMessagePrivate(messageKafka, conversationId), noCacheHeader, HttpStatus.OK);
+    public ResponseEntity<MessagePrivate> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka,
+                                                                   @RequestParam(required = false) Optional<String> conversationId){
+        return new  ResponseEntity<>(chatService.sendMessagePrivate(messageKafka, conversationId), noCacheHeader, HttpStatus.OK);
     }
 //    private final ChatRoomService chatRoomService;
 //    private final UserChatService userChatService;

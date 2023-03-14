@@ -1,14 +1,11 @@
 package com.example.appapi.controller;
 
-import com.example.appapi.model.dto.MessageKafka;
 import com.example.appapi.model.entity.ConversationPublic;
 import com.example.appapi.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
