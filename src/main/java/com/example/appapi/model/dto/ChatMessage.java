@@ -1,7 +1,6 @@
 package com.example.appapi.model.dto;
 
 
-import com.kafkaservice.payload.MessageKafka;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

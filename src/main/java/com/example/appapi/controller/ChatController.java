@@ -1,10 +1,11 @@
 package com.example.appapi.controller;
 
 
+import com.example.appapi.model.dto.MessageKafka;
 import com.example.appapi.model.entity.MessagePrivate;
 import com.example.appapi.model.entity.MessagePublic;
 import com.example.appapi.service.ChatService;
-import com.kafkaservice.payload.MessageKafka;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,11 @@ public class ChatController extends BaseController {
         return new  ResponseEntity<>(chatService.sendMessagePublic(messageKafka, conversationPublicId), noCacheHeader, HttpStatus.OK);
     }
 
-    @PostMapping("/chat-private")
-    public ResponseEntity<MessagePrivate> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka,
-                                                                   @RequestParam(required = false) Optional<String> conversationId){
-        return new  ResponseEntity<>(chatService.sendMessagePrivate(messageKafka, conversationId), noCacheHeader, HttpStatus.OK);
-    }
+//    @PostMapping("/chat-private")
+//    public ResponseEntity<MessagePrivate> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka,
+//                                                                   @RequestParam(required = false) Optional<String> conversationId){
+//        return new  ResponseEntity<>(chatService.sendMessagePrivate(messageKafka, conversationId), noCacheHeader, HttpStatus.OK);
+//    }
 //    private final ChatRoomService chatRoomService;
 //    private final UserChatService userChatService;
 //

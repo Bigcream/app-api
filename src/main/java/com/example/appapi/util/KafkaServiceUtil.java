@@ -1,6 +1,6 @@
 package com.example.appapi.util;
 
-import com.kafkaservice.payload.MessageKafka;
+import com.example.appapi.model.dto.MessageKafka;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

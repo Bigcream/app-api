@@ -1,17 +1,14 @@
 package com.example.appapi.service;
 
-import com.example.appapi.constant.KafkaServiceApi;
-import com.example.appapi.kafka.producer.ChatPrivateProducer;
 import com.example.appapi.kafka.producer.ChatPublicProducer;
+import com.example.appapi.model.dto.MessageKafka;
 import com.example.appapi.model.entity.Conversation;
 import com.example.appapi.model.entity.MessagePrivate;
 import com.example.appapi.model.entity.MessagePublic;
 import com.example.appapi.repository.ConversationRepo;
 import com.example.appapi.repository.MessagePrivateRepo;
 import com.example.appapi.repository.MessagePublicRepo;
-import com.example.appapi.repository.ConversationPublicRepo;
 import com.example.appapi.util.ObjectMapperUtil;
-import com.kafkaservice.payload.MessageKafka;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +25,7 @@ public class ChatService {
     private final MessagePrivateRepo messagePrivateRepo;
     private final ConversationRepo conversationRepo;
     private final ChatPublicProducer chatPublicProducer;
-    private final ChatPrivateProducer chatPrivateProducer;
+//    private final ChatPrivateProducer chatPrivateProducer;
 
     @Transactional
     public void saveMessagePublicChat(MessageKafka messageKafka){
@@ -58,34 +55,34 @@ public class ChatService {
         return messagePublic;
     }
 
-    @Transactional
-    public MessagePrivate sendMessagePrivate(MessageKafka messageKafka, Optional<String> optConversationId) {
-        String conversationId;
-        if(!optConversationId.isPresent()) {
-            List<String> participants = new ArrayList<>();
-            participants.add(messageKafka.getSender());
-            participants.add(messageKafka.getReceiver());
-            Conversation conversation = Conversation.builder()
-                    .participants(participants)
-                    .build();
-            conversation = conversationRepo.save(conversation);
-            conversationId = conversation.getId();
-        } else {
-            conversationId = optConversationId.get();
-        }
-        MessagePrivate messagePrivate = MessagePrivate.builder()
-                .sender(messageKafka.getSender())
-                .content(messageKafka.getContent())
-                .conversationId(conversationId)
-                .build();
-        messagePrivate = messagePrivateRepo.save(messagePrivate);
-        messageKafka.setConversationId(conversationId);
-        try {
-            chatPrivateProducer.sendMessageToPrivateChat(messageKafka);
-        } catch (Exception e){
-            throw new RuntimeException("Can't send message private to kafka");
-        }
-        return messagePrivate;
-    }
+//    @Transactional
+//    public MessagePrivate sendMessagePrivate(MessageKafka messageKafka, Optional<String> optConversationId) {
+//        String conversationId;
+//        if(!optConversationId.isPresent()) {
+//            List<String> participants = new ArrayList<>();
+//            participants.add(messageKafka.getSender());
+//            participants.add(messageKafka.getReceiver());
+//            Conversation conversation = Conversation.builder()
+//                    .participants(participants)
+//                    .build();
+//            conversation = conversationRepo.save(conversation);
+//            conversationId = conversation.getId();
+//        } else {
+//            conversationId = optConversationId.get();
+//        }
+//        MessagePrivate messagePrivate = MessagePrivate.builder()
+//                .sender(messageKafka.getSender())
+//                .content(messageKafka.getContent())
+//                .conversationId(conversationId)
+//                .build();
+//        messagePrivate = messagePrivateRepo.save(messagePrivate);
+//        messageKafka.setConversationId(conversationId);
+//        try {
+//            chatPrivateProducer.sendMessageToPrivateChat(messageKafka);
+//        } catch (Exception e){
+//            throw new RuntimeException("Can't send message private to kafka");
+//        }
+//        return messagePrivate;
+//    }
 
 }
