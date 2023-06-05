@@ -1,24 +1,17 @@
 package com.example.appapi.kafka.producer;
 
 
-import com.example.appapi.constant.KafkaTopic;
 import com.example.appapi.model.dto.MessageKafka;
 import com.example.appapi.util.SerializerUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.example.appapi.constant.KafkaTopic.PRIVATE_CHAT_TOPIC;
 import static com.example.appapi.constant.KafkaTopic.PUBLIC_CHAT_TOPIC;
 
 @Component
@@ -28,7 +21,7 @@ public class ChatPublicProducer {
     private final KafkaTemplate<String, byte[]> kafkaTemplate;
     private final static long sendTimeout = 3000;
 
-    public void sendMessageToPublicChat(MessageKafka messageKafka) {
+    public void publicChat(MessageKafka messageKafka) {
         byte[] eventsBytes = SerializerUtils.serializeToJsonBytes(messageKafka);
         ProducerRecord<String, byte[]> record = new ProducerRecord<>(PUBLIC_CHAT_TOPIC, eventsBytes);
 

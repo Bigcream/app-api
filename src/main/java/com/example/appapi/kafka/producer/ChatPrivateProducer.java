@@ -1,26 +1,34 @@
-//package com.example.appapi.kafka.producer;
-//
-//import com.example.appapi.constant.KafkaTopic;
-//import com.example.appapi.model.dto.MessageKafka;
-//import lombok.RequiredArgsConstructor;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.kafka.core.KafkaTemplate;
-//import org.springframework.kafka.support.KafkaHeaders;
-//import org.springframework.messaging.Message;
-//import org.springframework.messaging.support.MessageBuilder;
-//import org.springframework.stereotype.Component;
-//
-//@Component
-//@RequiredArgsConstructor
-//public class ChatPrivateProducer {
-//    private static final Logger LOGGER = LoggerFactory.getLogger(ChatPrivateProducer.class);
-//    private final KafkaTemplate<String, String> kafkaTemplate;
-//    public void sendMessageToPrivateChat(MessageKafka messageKafka){
-//        Message<MessageKafka> message = MessageBuilder.withPayload(messageKafka)
-//                .setHeader(KafkaHeaders.TOPIC, KafkaTopic.PRIVATE_CHAT_TOPIC)
-////                .setHeader(KafkaHeaders.MESSAGE_KEY, "key0")
-//                .build();
-//        kafkaTemplate.send(message);
-//    }
-//}
+package com.example.appapi.kafka.producer;
+
+import com.example.appapi.model.dto.MessageKafka;
+import com.example.appapi.util.SerializerUtils;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
+
+import static com.example.appapi.constant.KafkaTopic.PRIVATE_CHAT_TOPIC;
+
+@Component
+@RequiredArgsConstructor
+@Slf4j
+public class ChatPrivateProducer {
+
+    private final KafkaTemplate<String, byte[]> kafkaTemplate;
+    private final static long sendTimeout = 3000;
+    public void privateChat(MessageKafka messageKafka) {
+        ProducerRecord<String, byte[]> record = new ProducerRecord<>(PRIVATE_CHAT_TOPIC,
+                SerializerUtils.serializeToJsonBytes(messageKafka));
+        try {
+            kafkaTemplate.send(record).get(sendTimeout, TimeUnit.MILLISECONDS);
+            log.info("publishing kafka record value >>>>> {}", new String(record.value()));
+
+        } catch (Exception ex) {
+            log.error("(KafkaEventBus) publish get timeout", ex);
+            throw new RuntimeException(ex);
+        }
+    }
+}

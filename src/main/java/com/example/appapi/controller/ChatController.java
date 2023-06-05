@@ -5,7 +5,6 @@ import com.example.appapi.model.dto.MessageKafka;
 import com.example.appapi.model.entity.MessagePrivate;
 import com.example.appapi.model.entity.MessagePublic;
 import com.example.appapi.service.ChatService;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +21,14 @@ public class ChatController extends BaseController {
     @PostMapping("/chat-public")
     public ResponseEntity<MessagePublic> sendMessageToPublicChat(@RequestBody MessageKafka messageKafka,
                                                                  @RequestParam String conversationPublicId){
-        return new  ResponseEntity<>(chatService.sendMessagePublic(messageKafka, conversationPublicId), noCacheHeader, HttpStatus.OK);
+        return new  ResponseEntity<>(chatService.publicChat(messageKafka, conversationPublicId), noCacheHeader, HttpStatus.OK);
     }
 
-//    @PostMapping("/chat-private")
-//    public ResponseEntity<MessagePrivate> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka,
-//                                                                   @RequestParam(required = false) Optional<String> conversationId){
-//        return new  ResponseEntity<>(chatService.sendMessagePrivate(messageKafka, conversationId), noCacheHeader, HttpStatus.OK);
-//    }
+    @PostMapping("/chat-private")
+    public ResponseEntity<MessagePrivate> sendMessageToPrivateChat(@RequestBody MessageKafka messageKafka,
+                                                                   @RequestParam(required = false) Optional<String> conversationId){
+        return new  ResponseEntity<>(chatService.privateChat(messageKafka, conversationId), noCacheHeader, HttpStatus.OK);
+    }
 //    private final ChatRoomService chatRoomService;
 //    private final UserChatService userChatService;
 //
