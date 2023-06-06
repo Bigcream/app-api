@@ -59,7 +59,7 @@ spring:
       database: microservices
       password: admin
   application:
-    name: microservice
+    name: app-api
   datasource:
     password: ecommerce
     url: jdbc:postgresql://localhost:5432/ecommerce
@@ -67,48 +67,48 @@ spring:
       maximum-pool-size: '30'
       minimum-idle: '10'
     username: ecommerce
-#  sleuth:
-#    propagation:
-#      type: w3c,b3
-#    opentracing:
-#      enabled: 'true'
-#  zipkin:
-#    base-url: http://localhost:9411
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: health,prometheus,info
-#  metrics:
-#    export:
-#      prometheus:
-#        enabled: 'true'
-#resilience4j:
-#  retry:
-#    instances:
-#      microservice:
-#        waitDuration: 1s
-#        exponentialBackoffMultiplier: '2'
-#        enableExponentialBackoff: 'true'
-#        ignore-exceptions: com.eventsourcing.es.exceptions.AggregateNotFoundException
-#        max-attempts: '3'
-#  thread-pool-bulkhead:
-#    instances:
-#      microservice:
-#        maxThreadPoolSize: '1'
-#        queueCapacity: '1'
-#        coreThreadPoolSize: '1'
-#  circuitbreaker:
-#    instances:
-#      microservice:
-#        minimumNumberOfCalls: '10'
-#        failureRateThreshold: '30'
-#        eventConsumerBufferSize: '10'
-#        slidingWindowType: TIME_BASED
-#        registerHealthIndicator: 'true'
-#        permittedNumberOfCallsInHalfOpenState: '3'
-#        waitDurationInOpenState: 20s
-#        slidingWindowSize: '5'
+  sleuth:
+    propagation:
+      type: w3c,b3
+    opentracing:
+      enabled: 'true'
+  zipkin:
+    base-url: http://localhost:9411
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,info
+  metrics:
+    export:
+      prometheus:
+        enabled: 'true'
+resilience4j:
+  retry:
+    instances:
+      microservice:
+        waitDuration: 1s
+        exponentialBackoffMultiplier: '2'
+        enableExponentialBackoff: 'true'
+        ignore-exceptions: com.eventsourcing.es.exceptions.AggregateNotFoundException
+        max-attempts: '3'
+  thread-pool-bulkhead:
+    instances:
+      microservice:
+        maxThreadPoolSize: '1'
+        queueCapacity: '1'
+        coreThreadPoolSize: '1'
+  circuitbreaker:
+    instances:
+      microservice:
+        minimumNumberOfCalls: '10'
+        failureRateThreshold: '30'
+        eventConsumerBufferSize: '10'
+        slidingWindowType: TIME_BASED
+        registerHealthIndicator: 'true'
+        permittedNumberOfCallsInHalfOpenState: '3'
+        waitDurationInOpenState: 20s
+        slidingWindowSize: '5'
 #  timelimiter:
 #    instances:
 #      microservice:

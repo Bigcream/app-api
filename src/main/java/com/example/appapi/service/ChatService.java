@@ -11,6 +11,8 @@ import com.example.appapi.repository.MessagePrivateRepo;
 import com.example.appapi.repository.MessagePublicRepo;
 import com.example.appapi.util.ObjectMapperUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.sleuth.annotation.NewSpan;
+import org.springframework.cloud.sleuth.annotation.SpanTag;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +42,8 @@ public class ChatService {
     }
 
     @Transactional
-    public MessagePublic publicChat(MessageKafka messageKafka, String conversationPublicId) {
+    @NewSpan
+    public MessagePublic publicChat(@SpanTag("event") MessageKafka messageKafka, String conversationPublicId) {
         MessagePublic messagePublic = MessagePublic.builder()
                 .sender(messageKafka.getSender())
                 .content(messageKafka.getContent())

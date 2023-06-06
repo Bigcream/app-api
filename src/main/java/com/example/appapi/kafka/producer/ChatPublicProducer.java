@@ -6,6 +6,8 @@ import com.example.appapi.util.SerializerUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.springframework.cloud.sleuth.annotation.NewSpan;
+import org.springframework.cloud.sleuth.annotation.SpanTag;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +23,8 @@ public class ChatPublicProducer {
     private final KafkaTemplate<String, byte[]> kafkaTemplate;
     private final static long sendTimeout = 3000;
 
-    public void publicChat(MessageKafka messageKafka) {
+    @NewSpan
+    public void publicChat(@SpanTag("event") MessageKafka messageKafka) {
         byte[] eventsBytes = SerializerUtils.serializeToJsonBytes(messageKafka);
         ProducerRecord<String, byte[]> record = new ProducerRecord<>(PUBLIC_CHAT_TOPIC, eventsBytes);
 
